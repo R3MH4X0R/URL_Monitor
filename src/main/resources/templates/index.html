@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>URL Monitor</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" th:src="@{main.js}" src="../static/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+</head>
+<body>
+<!-- navbar -->
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">URL Monitor</a>
+        </div>
+
+    </div>
+</nav>
+
+<div class="container">
+    <div class="row">
+        <div>
+            <div class="panel panel-default">
+                <form name="myForm" method="post" th:action="@{/save}">
+                    <!-- input box add -->
+                    <div class="form-group">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="url" name="url" value="" placeholder="Insert url here"/>
+                            <td>
+
+                                <button th:type="submit" class="btn btn-info">Add New Url</button>
+                                <a th:href="${'/refresh'}" class="btn btn-info" id="refreshButton">Refresh</a>
+                                <button type="button" class="btn btn-info" id="autoref">Auto-Refresh</button>
+                                <button type="button" class="btn btn-warning" id="stopautoref">Stop Auto-Refresh</button>
+                                <div id="messageBox"></div> <!-- Here i would like to display message-->
+
+                            </td>
+                        </div>
+                    </div>
+                </form>
+                <table class="table" id="myTable">
+                    <thead>
+                    <tr>
+                        <th>URL</th>
+                        <th>Time(ms)</th>
+                        <th>Content lenght</th>
+                        <th>Response</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <div th:if="!${#lists.isEmpty(urls)}">
+                        <tr th:each = "urlInfo : ${urls}">
+                            <td th:text = "${urlInfo.url}"></td>
+                            <td th:text = "${urlInfo.time}"></td>
+                            <td th:text = "${urlInfo.contentLenght}"></td>
+                            <td th:text = "${urlInfo.response}" class="y_n"></td>
+                            <td>
+
+                                    <a th:href="${'/update/' + urlInfo.id}" class="btn btn-success" id="updateButton">Update</a>
+                                    <a th:href="${'/delete/' + urlInfo.id}" class="btn btn-danger">Delete</a>
+
+                            </td>
+                        </tr>
+                    </div>
+                    <div th:if="${#lists.isEmpty(urls)}">
+                        <tr>
+                            <td>No url exists!</td>
+                        </tr>
+                    </div>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+</div>
+</body>
+</html>
