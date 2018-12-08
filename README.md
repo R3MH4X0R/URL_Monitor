@@ -20,7 +20,7 @@ Possible in future this project get some reworks and new features!
 ## Install
 Clone the project
 ```
-git clone https://github.com/R3MH4X0R/URL_Monitor.git
+git clone https://github.com/n7-remax/URL_Monitor.git
 ```
 Use maven to build project
 
